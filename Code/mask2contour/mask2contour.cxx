@@ -15,6 +15,7 @@
 #include <vector>
 
 using std::cerr;
+using std::cout;
 using std::endl;
 using std::ios;
 using std::ifstream;
@@ -193,6 +194,7 @@ void WriteContourVertices(ofstream&                     file1,
                           const double                  spacing[])
 {
   unsigned int numOutputs = contourExtractFilter->GetNumberOfOutputs();
+  cout << "numOutputs for contours: " << numOutputs << endl;
 
   // update the "TOTAL_NUMBER_OF_CONTOURS" value
   TOTAL_NUMBER_OF_CONTOURS += numOutputs;

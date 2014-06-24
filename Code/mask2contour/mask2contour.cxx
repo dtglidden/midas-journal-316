@@ -41,7 +41,7 @@ const float FLOAT_EPSILON = 0.0001;
 // the coordinates of the contours to a text file.
 const unsigned int precision = 16;
 
-//Set the contour value to be extracted. 
+//Set the contour value to be extracted.
 const double contourValue = 100.0;
 
 // Global variable to count the total number of contours
@@ -74,13 +74,13 @@ void WriteCommonData(const unsigned int sliceNumber,
                      const string       geometricType,
                      ofstream&          file1);
 
-void WriteVertexCoordinates(const        VertexType vertex, 
+void WriteVertexCoordinates(const        VertexType vertex,
                             const int    offset_index[],
                             const double spacing[],
                             const double zValue,
                             ofstream&    file1);
 
-void WriteLastVertexCoordinates(const        VertexType vertex, 
+void WriteLastVertexCoordinates(const        VertexType vertex,
                                 const int    offset_index[],
                                 const double spacing[],
                                 const double zValue,
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 
   const char* tempFileName   = "temp_junk_file.txt";
 
-  // Make sure that the <output-file> can be opened. 
+  // Make sure that the <output-file> can be opened.
   ofstream file1(tempFileName, ios::trunc);
   if ( ! file1.is_open() )
   {
@@ -117,16 +117,16 @@ int main(int argc, char *argv[])
   ImageReaderType::Pointer reader = ImageReaderType::New();
   reader->SetFileName(inputFileName);
 
-  try 
-  { 
+  try
+  {
     reader->Update();
-  } 
-  catch( itk::ExceptionObject & err ) 
-  { 
-    cerr << "ExceptionObject caught !" << endl; 
-    cerr << err << endl; 
+  }
+  catch( itk::ExceptionObject & err )
+  {
+    cerr << "ExceptionObject caught !" << endl;
+    cerr << err << endl;
     return EXIT_FAILURE;
-  } 
+  }
 
   const InputImageType::SpacingType& spacing = reader->GetOutput()->GetSpacing();
 
@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
   contourExtractFilter->SetContourValue(contourValue);
   contourExtractFilter->ReverseContourOrientationOn();
 
-  InputImageType::RegionType inputRegion = 
+  InputImageType::RegionType inputRegion =
                         reader->GetOutput()->GetLargestPossibleRegion();
   InputImageType::SizeType size = inputRegion.GetSize();
   const unsigned int numberOfSlices = size[2];
@@ -165,19 +165,19 @@ int main(int argc, char *argv[])
     sliceExtractFilter->SetInput(reader->GetOutput());
     contourExtractFilter->SetInput(sliceExtractFilter->GetOutput());
 
-    try 
-    { 
+    try
+    {
       contourExtractFilter->Update();
-    } 
-    catch( itk::ExceptionObject & err ) 
-    { 
-      cerr << "ExceptionObject caught!" << endl; 
-      cerr << err << endl; 
+    }
+    catch( itk::ExceptionObject & err )
+    {
+      cerr << "ExceptionObject caught!" << endl;
+      cerr << err << endl;
       return EXIT_FAILURE;
     }
-    WriteContourVertices(file1, contourExtractFilter, 
+    WriteContourVertices(file1, contourExtractFilter,
                          currentSlice, offset_index, space);
-  } 
+  }
   file1.close();
 
   AppendTextFile(tempFileName, outputFileName);
@@ -275,7 +275,7 @@ void WriteCommonData(const unsigned int sliceNumber,
 }
 
 
-void WriteVertexCoordinates(const        VertexType vertex, 
+void WriteVertexCoordinates(const        VertexType vertex,
                             const int    offset_index[],
                             const double spacing[],
                             const double zValue,
@@ -288,7 +288,7 @@ void WriteVertexCoordinates(const        VertexType vertex,
 }
 
 
-void WriteLastVertexCoordinates(const        VertexType vertex, 
+void WriteLastVertexCoordinates(const        VertexType vertex,
                                 const int    offset_index[],
                                 const double spacing[],
                                 const double zValue,
@@ -326,7 +326,7 @@ void AppendTextFile(const char* fileName1, const char* outputFileName)
   char ch;
   while (file1.get(ch)) // copies all characters (including newline chars)
     outputFile.put(ch);
-  
+
   file1.close();
   outputFile.close();
 
@@ -336,5 +336,5 @@ void AppendTextFile(const char* fileName1, const char* outputFileName)
     cerr <<"Unable to remove the temporary file" <<endl;
     exit(1);
   }
-  
+
 }

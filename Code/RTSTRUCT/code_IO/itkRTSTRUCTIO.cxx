@@ -3,8 +3,8 @@
   Program:   Insight Segmentation & Registration Toolkit
   Module:    $RCSfile: itkRTSTRUCTIO.cxx,v $
   Language:  C++
-  Date:      
-  Version:   
+  Date:
+  Version:
 
   Copyright (c) Insight Software Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -12,8 +12,8 @@
   Portions of this code are covered under the VTK copyright.
   See VTKCopyright.txt or http://www.kitware.com/VTKCopyright.htm for details.
 
-     This software is distributed WITHOUT ANY WARRANTY; without even 
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
@@ -238,7 +238,7 @@ void RTSTRUCTIO::Write(const void* buffer)
   {
     const std::string &key = itr->first; //Needed for bcc32
 #endif
-    
+
     // Convert DICOM name to DICOM (group,element)
     gdcm::DictEntry *dictEntry =
       header->GetPubDict()->GetEntry(key);
@@ -251,7 +251,7 @@ void RTSTRUCTIO::Write(const void* buffer)
       {
         gdcm::SeqEntry *seqEntry = header->InsertSeqEntry(
                                               dictEntry->GetGroup(),
-                                              dictEntry->GetElement());  
+                                              dictEntry->GetElement());
         MetaDataDictionary sub_dict;
         ExposeMetaData<itk::MetaDataDictionary>(dict, key, sub_dict);
 
@@ -272,8 +272,8 @@ void RTSTRUCTIO::Write(const void* buffer)
         }
 
       } // end dict entry with string as value
-    } 
-   
+    }
+
     #if !(defined(_MSC_VER) && _MSC_VER < 1300)
       ++itr;
     #endif
@@ -411,7 +411,7 @@ bool RTSTRUCTIO::GetLabelFromTag( const std::string & tagkey,
                                    std::string & labelId )
 {
   gdcm::Dict *pubDict = gdcm::Global::GetDicts()->GetDefaultPubDict();
-  
+
   gdcm::DictEntry *dictentry = pubDict->GetEntry( tagkey );
 
   bool found;
@@ -456,10 +456,10 @@ bool RTSTRUCTIO::InsertDICOMSequence(MetaDataDictionary &sub_dict,
     // To separate the items from each other, each item is
     // encapsulated inside a dictionary and to distinguish them against sub-sequences,
     // special-predefined-strings are associated with those dictionaries.
-    // 
+    //
     // In such cases, inside sub-dictionary associated with those
     // special-predefined-strings is passed to this self-calling function.
- 
+
     if (ITEM_ENCAPSULATE_STRING == inside_key.substr(0, ITEM_ENCAPSULATE_STRING.length()))
     {
       // Get the dictionary associted with that string...
@@ -503,7 +503,7 @@ bool RTSTRUCTIO::InsertDICOMSequence(MetaDataDictionary &sub_dict,
         sqItem->AddEntry(inside_valEntry);
       }
     }
-    ++itr; 
+    ++itr;
   }
   if (sqItem != NULL)
   {

@@ -52,7 +52,7 @@ void WriteOptionalTags(const vector<string>&   optionalModule,
                        DictionaryType&         dictWriter);
 
 string itos(int i); // convert int to string
-string FixNumDigitsTo3( string str); 
+string FixNumDigitsTo3( string str);
 
 void read_contour_data_file(char* );
 void SkipWhiteSpace(istream& );
@@ -95,7 +95,7 @@ typedef struct InputParameters_struct
   char* inputDCMFileName;
   char* outputFileName;
   char* prefixSOPInstUID;
-  
+
   char* contourDataFileName[MAX_NUM_ROIs];
   char* roiName[MAX_NUM_ROIs];
   char* roiInterpretedType[MAX_NUM_ROIs];
@@ -190,8 +190,8 @@ int main(int argc, char* argv[])
   //
   // Each individual module is described in detail below....
   //
-  
-  
+
+
   STRUCTOutType::Pointer gdcmIO2 = STRUCTOutType::New(); // for DICOM writer
   DictionaryType& dictWriter = gdcmIO2->GetMetaDataDictionary();
 
@@ -230,12 +230,12 @@ int main(int argc, char* argv[])
   //                  |--------------------------|
   //
   // Only the following tags of this module are written!
-  // 
+  //
   //
   // |-------|--------------------------------|-------------|------|
   // | S.No. | Attribute Name                 | Tag         | Type |
   // |-------|--------------------------------|-------------|------|
-  // | 1     | Study Inst. UID                | (0020|000d) | 1    | 
+  // | 1     | Study Inst. UID                | (0020|000d) | 1    |
   // | 2     | Study Date                     | (0008|0020) | 2    |
   // | 3     | Study Time                     | (0008|0030) | 2    |
   // | 4     | Ref. Phys. Name                | (0008|0090) | 2    |
@@ -297,7 +297,7 @@ int main(int argc, char* argv[])
   // |-------|--------------------|-------------|------|
   // | S.No. | Attribute Name     | Tag         | Type |
   // |-------|--------------------|-------------|------|
-  // | 1     | Modality           | (0008|0060) | 1    | 
+  // | 1     | Modality           | (0008|0060) | 1    |
   // | 2     | Series Inst. UID   | (0020|000e) | 1    |
   // | 3     | Series Number      | (0020|0011) | 2    |
   // |-------|--------------------|-------------|------|
@@ -327,7 +327,7 @@ int main(int argc, char* argv[])
   // |-------|------------------|-------------|------|
   // | S.No. | Attribute Name   | Tag         | Type |
   // |-------|------------------|-------------|------|
-  // | 1     | Manufacturer     | (0008|0070) | 2    | 
+  // | 1     | Manufacturer     | (0008|0070) | 2    |
   // |-------|------------------|-------------|------|
   // | 2     | Station Name     | (0008|1010) | 3    |
   // |-------|------------------|-------------|------|
@@ -381,7 +381,7 @@ int main(int argc, char* argv[])
   // A structure set defines a set of areas of significance.
   // Each area can be associated with a Frame of Reference and zero or more
   // images. Information which can be transferred with each region of
-  // interest (ROI) includes geometrical and display parameters, 
+  // interest (ROI) includes geometrical and display parameters,
   // and generation technique.
   //
   // We will write only those attributes listed in the following table.
@@ -464,12 +464,12 @@ int main(int argc, char* argv[])
   // ------------------------------------------------------
 
   // The Frame of Reference UID (0020,0052) shall be used to uniquely identify
-  // a frame of reference for a series. Each series shall have 
+  // a frame of reference for a series. Each series shall have
   // a single Frame of Reference UID. However, multiple Series
   // within a Study may share a Frame of Reference UID.
   // All images in a Series that share the same Frame of Reference UID
   // shall be spatially related to each other.
-  // 
+  //
   // We assume here that there is a single frame of reference and,
   // we will extract that value from the CT-DICOM image.
   //
@@ -490,7 +490,7 @@ int main(int argc, char* argv[])
   // -----------------------------------------------------------------------
   // Bottom-up approach is followed when there are recursive sequences....
   // -----------------------------------------------------------------------
-  
+
   // 5.2.1
   // Referenced SOP class UID = StudyComponentManagementSOPClass
   itk::EncapsulateMetaData<string>(rtRefStudyDict, "0008|1150", StudyComponentManagementSOPClass);
@@ -566,7 +566,7 @@ int main(int argc, char* argv[])
   // Uniquely identifies Frame of Reference in which ROI is defined, specified by Frame
   // of Reference UID (0020,0052) in Referenced Frame of Reference Sequence
   // (3006,0010). Required if Structure Set ROI Sequence (3006,0020) is sent.
-   
+
   for (unsigned int roiNumber = 1; roiNumber <= parameters->numOfROIs; roiNumber++)
   {
     tempString = ITEM_ENCAPSULATE_STRING + FixNumDigitsTo3( itos( roiNumber ) );
@@ -597,7 +597,7 @@ int main(int argc, char* argv[])
   // Each ROI contains a sequence of one or more contours, where a contour
   // is either a single point (for a point ROI) or more than one point
   // (representing an open or closed polygon).
-  // 
+  //
   //
   // We will write only those attributes listed in the following table.
   //
@@ -646,7 +646,7 @@ int main(int argc, char* argv[])
     DictionaryType &contourSeq = gdcmIOContour->GetMetaDataDictionary();
 
     CONTOUR = new ContourObject_struct;
-    read_contour_data_file(parameters->contourDataFileName[contourItem-1]); 
+    read_contour_data_file(parameters->contourDataFileName[contourItem-1]);
 
     unsigned int sliceNumber;
 
@@ -668,7 +668,7 @@ int main(int argc, char* argv[])
       // Referenced SOP Class UID:
       // Uniquely identifies the referenced image SOP instance
       // It's value is constant = CTImageSOPClassUID
-      itk::EncapsulateMetaData<string>(contourImageDict2, "0008|1150", CTImageSOPClassUID); 
+      itk::EncapsulateMetaData<string>(contourImageDict2, "0008|1150", CTImageSOPClassUID);
 
       // 1.3.1.2
       // Finding the Referenced SOP Instance UID, from the slice Number
@@ -696,11 +696,11 @@ int main(int argc, char* argv[])
       // Add this sub-item to Contour Sequence
       itk::EncapsulateMetaData<DictionaryType>(contourSeq, tempString, subItemDict);
     }
-  
+
     itk::EncapsulateMetaData<DictionaryType>(itemDict, "3006|0040", contourSeq);
     itk::EncapsulateMetaData<DictionaryType>(roiContourSeq, tempStringHigh, itemDict);
   }
-  
+
   // Add ROI Contour Sequence to Final Dictonary
   itk::EncapsulateMetaData<DictionaryType>(dictWriter, "3006|0039", roiContourSeq);
 
@@ -716,7 +716,7 @@ int main(int argc, char* argv[])
   // Only the following tags of this module are written!
   //
   // The RT ROI Observations module specifies the identification and
-  // interpretation of an ROI specified in the Structure Set and ROI 
+  // interpretation of an ROI specified in the Structure Set and ROI
   // Contour modules.
   //
   //
@@ -797,7 +797,7 @@ int main(int argc, char* argv[])
   // Clean up
   delete parameters;
 
-  return EXIT_SUCCESS;   
+  return EXIT_SUCCESS;
 }
 
 
@@ -819,7 +819,7 @@ bool IsTagPresent(DictionaryType::ConstIterator& tagItr,
 {
     if( tagItr == end)
       return false;
-    
+
     return true;
 }
 
@@ -901,10 +901,10 @@ string itos(int i)	// convert int to string
 
 // Add zeros before the stringto make # of digits = 3
 // It assumes that number of digits <= 3
-string FixNumDigitsTo3( string str) 
+string FixNumDigitsTo3( string str)
 {
   unsigned length = str.length();
-  
+
   assert( length != 0 );
   assert( length <= 3 );
 
@@ -940,7 +940,7 @@ void read_contour_data_file(char* config_file)
 
     if (f)
     {
-      SkipWhiteSpace(f);            
+      SkipWhiteSpace(f);
      f >> CONTOUR->totalContours;
 
      for ( unsigned int i=0; i < CONTOUR->totalContours; i++ )
@@ -964,10 +964,10 @@ void read_contour_data_file(char* config_file)
 
        // 3 coordinates: (x,y,z) for each point are to be stored.
        // "\\" is inserted in between the cooordinates => 4 additional bytes
-       // are required for each point. 
+       // are required for each point.
        // 6 more bytes are used for accomidating the digits
        // before the decimal point. =>
-       // In addition to precision bytes, (6+4=) 10 additional bytes are used. 
+       // In addition to precision bytes, (6+4=) 10 additional bytes are used.
        //
        unsigned int numOfBytes = (PRECISION+10) * 3 * CONTOUR->numOfPoints[i];
        char* contourData = new char[numOfBytes];

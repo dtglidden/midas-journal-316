@@ -3,8 +3,8 @@
   Program:   Insight Segmentation & Registration Toolkit
   Module:    $RCSfile: itkRTSTRUCTIO.h,v $
   Language:  C++
-  Date:      
-  Version:  
+  Date:
+  Version:
 
   Copyright (c) Insight Software Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -12,8 +12,8 @@
   Portions of this code are covered under the VTK copyright.
   See VTKCopyright.txt or http://www.kitware.com/VTKCopyright.htm for details.
 
-     This software is distributed WITHOUT ANY WARRANTY; without even 
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
@@ -57,7 +57,7 @@ namespace itk
  *              All the functions of the RTSTRUCT Reader are currently dummy :-)
  *
  *           *  Currently RTSTRUCTIO is inheritted from ImageIOBase;
- *              this is does not seem to the ideal thing to do since 
+ *              this is does not seem to the ideal thing to do since
  *              RTSTRUCT is not an image as such.
  *
  *           * The current interface of RTSTRUCT imitates "itkGDCMImageIO.h".
@@ -74,7 +74,7 @@ public:
   typedef RTSTRUCTIO          Self;
   typedef ImageIOBase         Superclass;
   typedef SmartPointer<Self>  Pointer;
-  
+
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
 
@@ -86,10 +86,10 @@ public:
   /** Determine the file type. Returns true if this ImageIO can read the
    * file specified. */
   virtual bool CanReadFile(const char*);
-  
+
   /** Set the spacing and dimesion information for the current filename. */
   virtual void ReadImageInformation();
-  
+
   /** Reads the data from disk into the memory buffer provided. */
   virtual void Read(void* buffer);
 
@@ -102,11 +102,11 @@ public:
   /** Writes the spacing and dimentions of the image.
    * Assumes SetFileName has been called with a valid file name. */
   virtual void WriteImageInformation();
-  
+
   /** Writes the data to disk from the memory buffer provided. Make sure
    * that the IORegion has been set properly. */
   virtual void Write(const void* buffer);
-  
+
   /** Macro to access the DICOM UID prefix. By default this is the ITK
    *  root id. This default can be overriden if the exam is for example
    *  part of an existing study.
@@ -159,13 +159,13 @@ public:
    * false and the value "Unknown " in the labelId. If the tagkey is found then
    * this static method returns true and the actual string descriptor of the
    * tagkey is returned in the variable labelId. */
-  static bool GetLabelFromTag( const std::string & tag, 
+  static bool GetLabelFromTag( const std::string & tag,
                                std::string & labelId );
 
   /** A DICOM file can contains multiple binary stream that can be very long
    * For example an Overlay on the image. Most of the time user do not want to load
    * this binary structure in memory since it can consume lot of memory. Therefore
-   * any field that is bigger than the default value 0xfff is discarded and just seek'd 
+   * any field that is bigger than the default value 0xfff is discarded and just seek'd
    * This method allow advanced user to force the reading of such field
    */
   itkSetMacro(MaxSizeLoadEntry, long);
@@ -184,7 +184,7 @@ public:
    */
   itkSetMacro(LoadPrivateTags, bool);
   itkGetMacro(LoadPrivateTags, bool);
-  itkBooleanMacro(LoadPrivateTags);  
+  itkBooleanMacro(LoadPrivateTags);
 
   /** Global method to define the default value for
    * LoadSequences. When instances of RTSTRUCTIO are created, the
@@ -244,7 +244,7 @@ private:
   std::string m_PatientName;
   std::string m_PatientID;
   std::string m_PatientDOB;
-  std::string m_StudyID;   
+  std::string m_StudyID;
   std::string m_StudyDescription;
   std::string m_PatientSex;
   std::string m_PatientAge;
@@ -258,7 +258,7 @@ private:
   bool        m_LoadPrivateTags;
   static bool m_LoadSequencesDefault;
   static bool m_LoadPrivateTagsDefault;
-  
+
   InternalHeader * m_DICOMHeader;
 };
 

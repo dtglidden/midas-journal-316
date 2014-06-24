@@ -3,14 +3,14 @@
   Program:   Insight Segmentation & Registration Toolkit
   Module:    $RCSfile: itkRTSTRUCTIOFactory.cxx,v $
   Language:  C++
-  Date:      
-  Version:   
+  Date:
+  Version:
 
   Copyright (c) Insight Software Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
-     This software is distributed WITHOUT ANY WARRANTY; without even 
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
@@ -19,7 +19,7 @@
 #include "itkRTSTRUCTIO.h"
 #include "itkVersion.h"
 
-  
+
 namespace itk
 {
 RTSTRUCTIOFactory::RTSTRUCTIOFactory()
@@ -30,7 +30,7 @@ RTSTRUCTIOFactory::RTSTRUCTIOFactory()
                          1,
                          CreateObjectFunction<RTSTRUCTIO>::New());
 }
-  
+
 RTSTRUCTIOFactory::~RTSTRUCTIOFactory()
 {
 }

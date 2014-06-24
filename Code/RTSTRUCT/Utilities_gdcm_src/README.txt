@@ -6,11 +6,11 @@
 #
 # The modifications can be compared with respect to
 #   ITK Release 3.10.1 (patch 1) (December 8 2008),
-#   using the old files present in bkp_old_files/ directory. 
+#   using the old files present in bkp_old_files/ directory.
 #   Those are marked with "*_10_old.cxx" naming.
 #
 #
-# For using this code, replace the original files in 
+# For using this code, replace the original files in
 #  ITK/Utilities/gdcm/src/ directory with above files
 #  and compile ITK code again.
 #

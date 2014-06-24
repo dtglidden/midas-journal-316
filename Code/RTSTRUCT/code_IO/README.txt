@@ -7,7 +7,7 @@
 #
 # For using these classes:
 #   1. place the above files in ITK/Code/IO directory &
-#   2. Add 
+#   2. Add
 #       itkRTSTRUCTIO.cxx
 #       itkRTSTRUCTIOFactory.cxx
 #      file-names to SET(ITKIO_SRCS) of CMakeLists.txt file
